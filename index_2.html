@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Launchpad</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f5f4f1;
+    --surface: #ffffff;
+    --border: rgba(0,0,0,0.08);
+    --border-hover: rgba(0,0,0,0.16);
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b6b6b;
+    --text-tertiary: #9a9a9a;
+    --tag-bg: #efefed;
+    --tag-text: #5a5a5a;
+  }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 40px 20px 64px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  header { margin-bottom: 40px; }
+  .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.03em; color: var(--text-primary); }
+  .date { font-size: 13px; color: var(--text-tertiary); }
+  .subtitle { font-size: 14px; color: var(--text-secondary); }
+  .divider { height: 0.5px; background: var(--border); margin: 18px 0 32px; }
+  .search-wrap { position: relative; margin-bottom: 36px; }
+  .search-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); pointer-events: none; }
+  #search {
+    width: 100%;
+    padding: 11px 14px 11px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  #search:focus { border-color: var(--border-hover); }
+  #search::placeholder { color: var(--text-tertiary); }
+  .section { margin-bottom: 32px; }
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 10px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+  .card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color 0.15s, transform 0.1s;
+  }
+  .card:hover { border-color: var(--border-hover); transform: translateY(-1px); }
+  .card:active { transform: translateY(0); }
+  .card-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .card-name { font-size: 13px; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+  .card-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.4; }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+  .tag { font-size: 10px; font-weight: 500; background: var(--tag-bg); color: var(--tag-text); padding: 2px 7px; border-radius: 20px; }
+  .card-arrow { font-size: 13px; color: var(--text-tertiary); }
+  .ic-blue   { background: #E8F0FE; }
+  .ic-purple { background: #EDE9FE; }
+  .ic-teal   { background: #D1FAE5; }
+  .ic-amber  { background: #FEF3C7; }
+  .ic-coral  { background: #FEE2E2; }
+  .ic-gray   { background: #F1EFE8; }
+  .ic-sky    { background: #E0F2FE; }
+  .no-results { display: none; text-align: center; color: var(--text-tertiary); font-size: 14px; padding: 40px 0; }
+  .card.hidden { display: none; }
+  .section.hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="header-top">
+      <h1>Sales Launchpad</h1>
+      <span class="date" id="date-display"></span>
+    </div>
+    <p class="subtitle">Rightworks Sales · all your apps in one place</p>
+  </header>
+
+  <div class="divider"></div>
+
+  <div class="search-wrap">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="search" placeholder="Search apps…" autocomplete="off" />
+  </div>
+
+  <div class="section" data-section="crm">
+    <div class="section-label">CRM &amp; Pipeline</div>
+    <div class="grid">
+      <a class="card" href="https://rightworks.lightning.force.com/lightning/page/home" target="_blank" data-name="salesforce crm opportunities">
+        <div class="card-icon ic-blue">☁️</div>
+        <div class="card-name">Salesforce</div>
+        <div class="card-desc">CRM &amp; Opportunities</div>
+        <div class="card-footer"><span class="tag">CRM</span><span class="card-arrow">↗</span></div>
+      </a>
+      <a class="card" href="https://app.clari.com/" target="_blank" data-name="clari forecast revenue pipeline">
+        <div class="card-icon ic-purple">📊</div>
+        <div class="card-name">Clari</div>
+        <div class="card-desc">Forecast &amp; Revenue</div>
+        <div class="card-footer"><span class="tag">Forecast</span><span class="card-arrow">↗</span></div>
+      </a>
+      <a class="card" href="https://align.clari.com/" target="_blank" data-name="clari align mutual action plan">
+        <div class="card-icon ic-purple">🤝</div>
+        <div class="card-name">Clari Align</div>
+        <div class="card-desc">Mutual action plans</div>
+        <div class="card-footer"><span class="tag">Deals</span><span class="card-arrow">↗</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section" data-section="execution">
+    <div class="section-label">Sales Execution</div>
+    <div class="grid">
+      <a class="card" href="https://groove.clari.com/" target="_blank" data-name="groove sequences cadences email outreach">
+        <div class="card-icon ic-teal">📧</div>
+        <div class="card-name">Groove</div>
+        <div class="card-desc">Sequences &amp; Cadences</div>
+        <div class="card-footer"><span class="tag">Outreach</span><span class="card-arrow">↗</span></div>
+      </a>
+      <a class="card" href="https://copilot.clari.com/" target="_blank" data-name="clari copilot call recording ai coaching">
+        <div class="card-icon ic-purple">🎙️</div>
+        <div class="card-name">CoPilot</div>
+        <div class="card-desc">Call Recording &amp; AI</div>
+        <div class="card-footer"><span class="tag">Calls</span><span class="card-arrow">↗</span></div>
+      </a>
+      <a class="card" href="https://app.qualified.com" target="_blank" data-name="qualified pipeline chat website visitor signals">
+        <div class="card-icon ic-coral">💬</div>
+        <div class="card-name">Qualified</div>
+        <div class="card-desc">Website Chat &amp; Signals</div>
+        <div class="card-footer"><span class="tag">Inbound</span><span class="card-arrow">↗</span></div>
+      </a>
+      <a class="card" href="https://rightworks.highspot.com/" target="_blank" data-name="highspot sales enablement content playbooks training">
+        <div class="card-icon ic-amber">📚</div>
+        <div class="card-name">Highspot</div>
+        <div class="card-desc">Content &amp; Enablement</div>
+        <div class="card-footer"><span class="tag">Enablement</span><span class="card-arrow">↗</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section" data-section="prospecting">
+    <div class="section-label">Prospecting &amp; Intelligence</div>
+    <div class="grid">
+      <a class="card" href="https://app.zoominfo.com" target="_blank" data-name="zoominfo contact company data prospecting">
+        <div class="card-icon ic-sky">🔍</div>
+        <div class="card-name">ZoomInfo</div>
+        <div class="card-desc">Contact &amp; Company Data</div>
+        <div class="card-footer"><span class="tag">Data</span><span class="card-arrow">↗</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section" data-section="meetings">
+    <div class="section-label">Meetings &amp; Scheduling</div>
+    <div class="grid">
+      <a class="card" href="https://zoom.us/signin" target="_blank" data-name="zoom video phone meetings calls">
+        <div class="card-icon ic-blue">📹</div>
+        <div class="card-name">Zoom</div>
+        <div class="card-desc">Phone &amp; Video Calls</div>
+        <div class="card-footer"><span class="tag">Meetings</span><span class="card-arrow">↗</span></div>
+      </a>
+      <a class="card" href="https://calendly.com" target="_blank" data-name="calendly scheduling booking calendar">
+        <div class="card-icon ic-teal">📅</div>
+        <div class="card-name">Calendly</div>
+        <div class="card-desc">Scheduling Links</div>
+        <div class="card-footer"><span class="tag">Scheduling</span><span class="card-arrow">↗</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section" data-section="ops">
+    <div class="section-label">Operations &amp; Reporting</div>
+    <div class="grid">
+      <a class="card" href="https://apps.powerapps.com/play/e/d9535c54-fc57-edc2-b4cf-4350270bdf1b/a/e14d52c1-86dc-4d49-9188-308e5dfd96ea?tenantId=8c66ac27-df88-4e63-b658-dcb282323bfe&amp;hint=25fef5e0-63a5-4b98-ad3b-24de15a1c9d3" target="_blank" data-name="accounthub myaccount rightworks account management customer users orgs power apps">
+        <div class="card-icon ic-amber">👤</div>
+        <div class="card-name">AccountHub</div>
+        <div class="card-desc">Customer Account Management</div>
+        <div class="card-footer"><span class="tag">Accounts</span><span class="card-arrow">↗</span></div>
+      </a>
+      <a class="card" href="https://intuitcorp.quickbase.com/" target="_blank" data-name="quickbase intuit ops reporting database apps">
+        <div class="card-icon ic-gray">🗃️</div>
+        <div class="card-name">QuickBase</div>
+        <div class="card-desc">QuickBooks License Orders</div>
+        <div class="card-footer"><span class="tag">Ops</span><span class="card-arrow">↗</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="no-results" id="no-results">No apps match your search.</div>
+
+</div>
+<script>
+  const d = new Date();
+  document.getElementById('date-display').textContent = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  const input = document.getElementById('search');
+  input.addEventListener('input', () => {
+    const q = input.value.toLowerCase().trim();
+    const cards = document.querySelectorAll('.card');
+    const sections = document.querySelectorAll('.section');
+    let anyVisible = false;
+    cards.forEach(card => {
+      const match = !q || card.dataset.name.includes(q) || card.querySelector('.card-name').textContent.toLowerCase().includes(q);
+      card.classList.toggle('hidden', !match);
+      if (match) anyVisible = true;
+    });
+    sections.forEach(section => {
+      const visibleCards = section.querySelectorAll('.card:not(.hidden)');
+      section.classList.toggle('hidden', visibleCards.length === 0);
+    });
+    document.getElementById('no-results').style.display = anyVisible ? 'none' : 'block';
+  });
+</script>
+</body>
+</html>
